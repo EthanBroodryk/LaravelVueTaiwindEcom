@@ -55,6 +55,7 @@
                         <p class="mt-2 text-slate-500">{{item.product_descruption}}</p>
                         <button  @click="addIndividualItemPrice(item.price,item.id)" class="inline-flex items-center px-4 py-2 mt-2 bg-green-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">+</button>
                         <button  @click="deductIndividualItemPrice(item.price,item.id)" class="inline-flex items-center px-4 py-2 mt-2 ml-4 bg-red-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">-</button>
+      
                     </div>
                 </div>
             </div>
@@ -94,8 +95,7 @@ export default {
         }
     },
     mounted(){
-        console.log('the prod',this.product)
-        this.product.quantity = 1
+
         this.getItemFromLocalStorage();
         const storedProducts = localStorage.getItem('productArray');
         if(storedProducts){
@@ -192,10 +192,18 @@ export default {
     deductIndividualItemPrice(itemPrice, product_id) {
         for (let i = 0; i < this.productArray.length; i++) {
             if (product_id == this.productArray[i].id) {
-                console.log('hog')
-                if(this.productArray[i].individualItemCount > 0){
+                if(this.productArray[i].individualItemCount > 1){
                     this.productArray[i].itemTotal = (parseInt(this.productArray[i].itemTotal) || 0) - parseInt(itemPrice);
                     this.deductIndividualItemPriceTotal(itemPrice,product_id)
+                }else{
+                    let indexToRemove = this.productArray[i]
+                    this.productArray = this.productArray.filter(item => item !== indexToRemove)
+                    localStorage.setItem('productArray',JSON.stringify(this.productArray))
+                    this.totalPrice -=  parseInt(itemPrice);
+                    localStorage.setItem('totalPrice',JSON.stringify(this.totalPrice))
+                    this.cartItemCount -= 1;
+                    localStorage.setItem('cartItemCount',JSON.stringify(this.cartItemCount))
+                
                 }
             }
         }
