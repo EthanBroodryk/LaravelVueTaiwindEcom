@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\FrontPageController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PayFastController;
+use App\Http\Controllers\SignatureController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,9 +36,21 @@ use Inertia\Inertia;
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+Route::get('/return',function(){
+    
+
+    return Inertia::render('ReturnPage');
+
+});
+
+Route::post('/notify',[PayFastController::class,'handleNotification']);
+// Route::post('/checkout2',[SignatureController::class,'generateSignature']);
+// Route::get('/checkout2',[SignatureController::class,'generateSignature']);
 
 Route::get('/',[FrontPageController::class,'index']);
 Route::get('/addProductToCart',[ProductsController::class,'addProductToCart'])->name('addProductToCart');
+Route::post('/checkout',[SignatureController::class,'generateSignature'])->name('generateSignature');
+Route::post('/checkout2',[SignatureController::class,'generateSignature']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/products',[ProductsController::class,'index'])->name('products.edit');

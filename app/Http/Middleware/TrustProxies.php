@@ -12,7 +12,9 @@ class TrustProxies extends Middleware
      *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    protected $proxies = [
+       'https://261b-197-90-121-90.ngrok-free.app/'
+    ];
 
     /**
      * The headers that should be used to detect proxies.
