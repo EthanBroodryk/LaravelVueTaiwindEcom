@@ -29,7 +29,6 @@ computed: {
         product.product_name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     },
-    
 },
 
 mounted(){
@@ -63,6 +62,7 @@ mounted(){
             <ul class="hidden md:flex space-x-4">
                 <li><a  class="text-white hover:text-blue-200">Home</a></li>
                 <li><a  class="text-white hover:text-blue-200">About</a></li>
+                <Link   class="text-white hover:text-blue-200" :href="route('orders')" method="get">Orders</Link>
                 <li><a  class="text-white hover:text-blue-200">Service</a></li>
                 <li><a  class="text-white hover:text-blue-200">Contact</a></li>
             </ul>

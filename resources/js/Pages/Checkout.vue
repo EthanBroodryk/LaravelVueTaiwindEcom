@@ -102,7 +102,7 @@ methods:{
 
     test(){
         this.isLoading = true
-        const url = ' https://6c79-197-90-67-193.ngrok-free.app/checkout2'
+        const url = 'https://6e95-197-90-96-65.ngrok-free.app/checkout2'
         
         router.visit(url, {
             method: 'post',

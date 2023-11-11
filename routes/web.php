@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontPageController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PayFastController;
 use App\Http\Controllers\SignatureController;
+use App\Http\Controllers\ordersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,11 +38,10 @@ use Inertia\Inertia;
 
 Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
 Route::get('/return',function(){
-    
-
     return Inertia::render('ReturnPage');
-
 });
+
+Route::get('/Orders',[ordersController::class,'index'])->name('orders');
 
 Route::post('/notify',[PayFastController::class,'handleNotification']);
 // Route::post('/checkout2',[SignatureController::class,'generateSignature']);
