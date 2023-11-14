@@ -93,38 +93,54 @@ mounted(){
 </script>
 
 <template>
-    <div class="h-full w-full ">
-        <nav class="bg-orange-500 p-6">
-            <div class="container mx-auto flex justify-between items-center">
-                <a>Manage Products</a>
-                <!-- Navigation Menu (Desktop)-->
-                <ul class="hidden md:flex space-x-4">
-                    <li><a  class="text-white hover:text-blue-200">Home</a></li>
-                    <li><a  class="text-white hover:text-blue-200">About</a></li>
-                    <li><a  class="text-white hover:text-blue-200">Service</a></li>
-                    <li><a  class="text-white hover:text-blue-200">Contact</a></li>
-                </ul>
-                <!-- Mobile menu (hamburger icon)--->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-white" @click="toggleButton()">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
+ 
+
+            <!--NAVBAR-->
+<nav class="bg-gray-800 p-4 fixed top-0 w-full z-10">
+        <div class="container flex mx-auto justify-between items-center">
+            <a class="text-white">DaggaJa</a>
+  <!--SEARCH BAR-->
+            <br>
+            <div class="flex justify-center items-center">
+                <div class="relative text-gray-600">
+                    <!-- <input v-model="searchQuery" type="search" name="search" placeholder="Search..." class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-64 border-gray-200"> -->
+                    <input v-model="searchQuery" class="rounded-full" type="text" placeholder="Search products...">
+                    <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
+                        <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="heroicon-ui" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34C16.7 6.01 13.69 3 10 3a7 7 0 0 0-7 7c0 3.68 3.01 6.7 6.73 6.95A6.5 6.5 0 0 0 14 15.5h.79l4.25 4.25a1 1 0 0 0 1.41-1.41l-4.25-4.25v-.79a6.5 6.5 0 0 0-6.5-6.5zM10 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
                     </button>
                 </div>
             </div>
-        </nav>
+    <!--SEARCH BAR-->
+            <ul class="hidden md:flex space-x-4 text-white">
+                <a :href="route('profile.edit')">Profile</a>
+                <a href=""></a>
+                <a href=""></a>
+                <a href=""></a>
+            </ul>
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-white"  @click="toggleButton()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div v-if="mobileMenuOpen" id="mobile-menu" class="md:hidden">
+        <ul class="bg-gray-800">
+            <l1 class="bg-blue-500"><a :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400">Manage Products</a></l1>
+            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+        </ul>
+    </div>
+    <!--NAVBAR---->
+
 
         <!-- Mobile Menu Dropdown-->
-        <div v-if="mobileMenuOpen" id="mobile-menu" class="md:hidden bg-blue-500 text-white " >
-            <ul class="bg-gray-800">
-                <l1 class="bg-blue-500"><Link :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400" >Dashboard</Link></l1>
-                <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-                <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-                <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-            </ul>
-        </div>
-    </div>
+ 
+  
     <br>
 
 

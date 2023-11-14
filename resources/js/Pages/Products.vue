@@ -125,91 +125,131 @@ mounted(){
 }
 </script>
 <template>
-<div class="h-full w-full bg-gradient-to-r from-gray-500">
-    <nav class="bg-gradient-to-r from-green-700 via-green-200 to-green-700 p-6">
-            <div class="container mx-auto flex justify-between items-center">
-                <a>Manage Products</a>
-                <!-- Navigation Menu (Desktop)-->
-                <ul class="hidden md:flex space-x-4">
-                    <li><a  class="text-white hover:text-blue-200">Home</a></li>
-                    <li><a  class="text-white hover:text-blue-200">About</a></li>
-                    <li><a  class="text-white hover:text-blue-200">Service</a></li>
-                    <li><a  class="text-white hover:text-blue-200">Contact</a></li>
-                </ul>
-                <!-- Mobile menu (hamburger icon)--->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-white" @click="toggleButton()">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
+
+    <!--NAVBAR-->
+<nav class="bg-gray-800 p-4 fixed top-0 w-full z-10">
+        <div class="container flex mx-auto justify-between items-center">
+            <a class="text-white">DaggaJa</a>
+  <!--SEARCH BAR-->
+            <br>
+            <div class="flex justify-center items-center">
+                <div class="relative text-gray-600">
+                    <!-- <input v-model="searchQuery" type="search" name="search" placeholder="Search..." class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-64 border-gray-200"> -->
+                    <input v-model="searchQuery" class="rounded-full" type="text" placeholder="Search products...">
+                    <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
+                        <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="heroicon-ui" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34C16.7 6.01 13.69 3 10 3a7 7 0 0 0-7 7c0 3.68 3.01 6.7 6.73 6.95A6.5 6.5 0 0 0 14 15.5h.79l4.25 4.25a1 1 0 0 0 1.41-1.41l-4.25-4.25v-.79a6.5 6.5 0 0 0-6.5-6.5zM10 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
                     </button>
                 </div>
             </div>
-        </nav>
-        <!-- Mobile Menu Dropdown-->
-        <div v-if="mobileMenuOpen" id="mobile-menu" class="md:hidden bg-blue-500 text-white " >
-            <ul class="bg-gray-800">
-                <l1 class="bg-blue-500"><Link :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400" >Dashboard</Link></l1>
-                <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-                <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-                <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+    <!--SEARCH BAR-->
+            <ul class="hidden md:flex space-x-4 text-white">
+                <a :href="route('profile.edit')">Profile</a>
+                <a href=""></a>
+                <a href=""></a>
+                <a href=""></a>
             </ul>
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-white"  @click="toggleButton()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div v-if="mobileMenuOpen" id="mobile-menu" class="md:hidden">
+        <ul class="bg-gray-800">
+            <l1 class="bg-blue-500"><a :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400">Manage Products</a></l1>
+            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
+        </ul>
+    </div>
+    <!--NAVBAR---->
+
+
+    <!-- SIDENAV -->
+<div class="hidden md:flex h-screen bg-gray-200">
+  <aside class="w-40 h-full bg-gray-800 text-white fixed">
+    <div class="p-4 text-2xl font-semibold">Sidebar</div>
+    <ul>
+      <li class="p-4 font-semibold hover:bg-gray-700"> <a :href="route('productsAddPage')">Add Product</a></li>
+    </ul>
+  </aside>
+
+  <!-- Display on medium and large screens -->
+
+  <div class="w-full">
+    <div class="container mx-auto md:pl-40 pt-20">
+      <table class="w-full table-auto">
+        <thead>
+          <tr>
+            <th class="border p-4 bg-slate-100">Product ID</th>
+            <th class="border p-4 bg-slate-100">Product Description</th>
+            <th class="border p-4 bg-slate-100">Product Name</th>
+            <th class="border p-4 bg-slate-100">Edit</th>
+            <th class="border p-4 bg-slate-100">Delete</th>
+          </tr>
+        </thead>
+        <tbody class="bg-slate-100">
+          <tr v-for="product in filteredProducts" :key="product.id">
+            <td class="border p-4">{{ product.id }}</td>
+            <td class="border p-4">{{ product.product_descruption }}</td>
+            <td class="border p-4">{{ product.product_name }}</td>
+            <td class="border p-4">
+              <a :href="route('editProduct', { prod_id: product.id })" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+            </td>
+            <td class="border p-4">
+              <a @click="openModal(product.id)" class="text-red-600 hover:text-indigo-900">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Display on medium and large screens -->
+  </div>
+</div>
+<!-- SIDENAV -->
+
+
+
+
+ 
+
+    <!--Display Products On Small Screen-->
+    <br>
+    <br>
+    <div class="container mx-auto p-4">
+        <div class="flex flex-row justify-center  overflow-hidden">
+            <!-- Hidden on medium and larger screens -->
+            <div class="grid grid-cols-1 md:hidden  ">
+                <div v-for="product in filteredProducts" :key="product.id" class="border-b mt-10 bg-gray-100">
+                    <div class="mt-2 border-b border-slate-300 p-2">Id:</div>
+                    <div class="mt-2 border-b border-slate-300 p-2">Product Name:</div>
+                    <div class="mt-2 border-b border-slate-300 p-2">Product Description:</div>
+                    <div class="mt-2 border-b border-slate-300 text-green-600 p-2">
+                            <a :href="route('editProduct', { prod_id: product.id })" class="text-indigo-600 hover:text-indigo-900 mt-2 p-2">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Hidden on medium and larger screens -->
+            <div class="grid grid-cols-1 md:hidden">
+                <div v-for="product in filteredProducts" :key="product.id" class="border-b w-full mt-10 border-b mt-10 bg-slate-100">
+                    <div class="mt-2 border-b border-slate-300 text-green-600 p-2">{{ product.id }}</div>
+                    <div class="mt-2 border-b border-slate-300 text-green-600 p-2">{{ product.product_descruption }}</div>
+                    <div class="mt-2 border-b border-slate-300 text-green-600 p-2">{{ product.product_name }}</div>
+                    <div class="mt-2 border-b border-slate-300 text-green-600 p-2">
+                        <a  @click="openModal(product.id)" class="text-red-600 hover:text-indigo-900 mt-2 p-2">Delete</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <br>
-    <div class="flex justify-center items-center">
-        <div class="relative text-gray-600">
-            <!-- <input v-model="searchQuery" type="search" name="search" placeholder="Search..." class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-64 border-gray-200"> -->
-            <input v-model="searchQuery" class="rounded-full" type="text" placeholder="Search products...">
-            <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
-                <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="heroicon-ui" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34C16.7 6.01 13.69 3 10 3a7 7 0 0 0-7 7c0 3.68 3.01 6.7 6.73 6.95A6.5 6.5 0 0 0 14 15.5h.79l4.25 4.25a1 1 0 0 0 1.41-1.41l-4.25-4.25v-.79a6.5 6.5 0 0 0-6.5-6.5zM10 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-            </button>
-        </div>
-    </div>
-    <br>
-    <br>
-    <!--PRODUCTS TABLE-->
-    <!-- <div class="overflow-x-auto px-4 sm:px-8"> 
-        <table class="min-w-full">
-            <thead>
-                <tr>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Product ID</th>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Product Name</th>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Description</th>
-                    <th class="hidden sm:table-cell px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">PRODUCT IMAGE</th>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">PRICE</th>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">ADD</th>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">EDIT</th>
-                    <th class="px-3 sm:px-6 py-3 bg-gray-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">DELETE</th>
-                </tr>
-            </thead>
-            <tbody>
-             
-                <tr v-for="product in filteredProducts" :key="product.id">
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">{{product.id}}</td>
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">{{product.product_name}}</td>
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">{{product.product_descruption}}</td>
-                    <td class="hidden sm:table-cell px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">
-                        <img class="w-10 h-10" :src="product.image_file_name" alt="Product Image">
-                    </td>
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">{{product.price}}</td>
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">
-                        <a :href="route('productsAddPage')" class="text-green-600 hover:text-indigo-900">Add</a>
-                    </td>
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">
-                        <a :href="route('editProduct', { prod_id: product.id })" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                    </td>
-                    <td class="px-3 sm:px-6 py-2 sm:py-4 whitespace-no-wrap border-b border-gray-200">
-                        <a  @click="openModal(product.id)" class="text-red-600 hover:text-indigo-900">Delete</a>
-                    </td>
-                </tr>
-           
-            </tbody>
-        </table>
-    </div>  -->
-    <!--END OF PRODUCTS TABLE-->
+     <!--Display Products On Small Screen-->
+
     <!--MODAL-->
-    <div v-if="showModal" class=" inset-0 flex items-center justify-center ">
+    <div v-if="showModal" class="fixed flex items-center justify-center fixed top-0 w-full z-10 ">
     <!-- Modal backdrop -->
         <div class="fixed  bg-black opacity-50"></div>
     <!-- Modal content -->
@@ -217,7 +257,6 @@ mounted(){
             <h2 class="text-red-600 text-lg font-semibold mb-4">Warning!</h2>
             <!-- <Link  class="text-red-600 hover:text-indigo-900" :href="route('productDelete')">Are You Sure?</Link> -->
             <button @click="sendData()" class="text-yellow-600  font-bold">Are You Sure?</button>
-
             <div class="mt-1 flex justify-center">
                 <Link @click="closeModal()" class="text-red-600 hover:text-indigo-900 mr-4" :href="route('productDelete')" method="post"  :data="{prod_id:this.deleteProductId}">Yes</Link>
                 <button @click="closeModal()" class="text-blue-600 hover:text-red-800 ml-4">Close</button>
@@ -225,67 +264,5 @@ mounted(){
         </div>
     </div>
      <!--END OF MODAL -->
-
-
-     <!---->
-    <div class="flex justify-center items-center ">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"><a :href="route('productsAddPage')" >Add New Product</a></button>
-    </div>
-     <div class="container mx-auto p-8 bg-white rounded">
-        <form @submit.prevent="submit" class="bg-gray-100 shadow-md border-1 border-slate-500 rounded  pt-2 pb-2 mb-1">
-        <div class="grid grid-cols-2 gap-4 md:flex md:flex-wrap justify-center" v-for="product in filteredProducts" :key="product.id">
-            <!-- Input 1 -->
-            <div class="mb-4">
-                <label class="block text-dark text-sm font-bold mb-2" for="input1">
-                PRODUCT ID
-                </label>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <input required  class="shadow appearance-none rounded-lg border-2 border-gray-400 w-24 py-1.5 px-3 text-gray-700 leading-tight" type="text" disabled :placeholder="product.id"/>
-            </div>
-            <div class="mb-4">
-                <label class="block text-dark  text-sm font-bold mb-2" for="input1">
-                PRODUCT NAME
-                </label>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <input required  class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-1.5 px-3 text-gray-700 leading-tight" type="text" disabled :placeholder="product.product_name"/>
-            </div>
-            <div>
-            <div class="mb-4">
-                <label class="block text-dark  text-sm font-bold mb-2" for="input1">
-                DESCRIPTION
-                </label>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <textarea class="shadow appearance-none rounded-lg border-2 border-gray-400 w- py-1.5 px-3 text-gray-700 leading-tight" type="text" disabled >{{  product.product_descruption}}</textarea>
-            </div>
-            </div>
-            <div class="mb-4">
-                <label class="block  text-dark  font-bold mb-2" for="input1">
-                PRICE
-                </label>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <input required  class="shadow appearance-none rounded-lg border-2 border-gray-400 w-24 py-1.5 px-3 text-gray-700 leading-tight" type="number" disabled :placeholder="product.price"/>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">
-                  
-                </label>
-                  <a :href="route('editProduct', { prod_id: product.id })" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <div class="px-3 sm:px-6 py-3"></div>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">
-                    <a  @click="openModal(product.id)" class="text-red-600 hover:text-indigo-900">Delete</a>
-                </label>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-          
-            </div>
-            </div>
-        </form>
-    </div>
-
-
-
 
 </template>
