@@ -14,5 +14,6 @@ class Products extends Model
         'product_descruption',
         'image_file_name',
         'price',
+        'product_category',
     ];
 }

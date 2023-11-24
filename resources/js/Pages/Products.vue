@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/vue3';
 import theme from 'tailwindcss/defaultTheme';
 import { useForm,usePage } from '@inertiajs/vue3'
-
+import ResponsiveSidebar from '@/Components/ResponsiveSidebar.vue';
 import TextInput from '@/Components/TextInput.vue';
 const user = usePage().props.auth.user;
 
@@ -38,6 +38,12 @@ data(){
       productForMessage:'',
       showModal:false,
       deleteProductId:null,
+      pages: [
+        { name: 'Home', url: '/' },
+        { name: 'About', url: '/about' },
+        { name: 'Contact', url: '/contact' },
+        // Add more pages as needed
+      ],
     
     }
 },
@@ -124,64 +130,12 @@ mounted(){
 
 }
 </script>
+
+
 <template>
+ <ResponsiveSidebar :pages = "pages" v-model="searchQuery"/>
 
-    <!--NAVBAR-->
-<nav class="bg-gray-800 p-4 fixed top-0 w-full z-10">
-        <div class="container flex mx-auto justify-between items-center">
-            <a class="text-white">DaggaJa</a>
-  <!--SEARCH BAR-->
-            <br>
-            <div class="flex justify-center items-center">
-                <div class="relative text-gray-600">
-                    <!-- <input v-model="searchQuery" type="search" name="search" placeholder="Search..." class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-64 border-gray-200"> -->
-                    <input v-model="searchQuery" class="rounded-full" type="text" placeholder="Search products...">
-                    <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
-                        <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="heroicon-ui" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34C16.7 6.01 13.69 3 10 3a7 7 0 0 0-7 7c0 3.68 3.01 6.7 6.73 6.95A6.5 6.5 0 0 0 14 15.5h.79l4.25 4.25a1 1 0 0 0 1.41-1.41l-4.25-4.25v-.79a6.5 6.5 0 0 0-6.5-6.5zM10 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-                    </button>
-                </div>
-            </div>
-    <!--SEARCH BAR-->
-            <ul class="hidden md:flex space-x-4 text-white">
-                <a :href="route('profile.edit')">Profile</a>
-                <a href=""></a>
-                <a href=""></a>
-                <a href=""></a>
-            </ul>
-            <div class="md:hidden">
-                <button id="mobile-menu-toggle" class="text-white"  @click="toggleButton()">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <div v-if="mobileMenuOpen" id="mobile-menu" class="md:hidden">
-        <ul class="bg-gray-800">
-            <l1 class="bg-blue-500"><a :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400">Manage Products</a></l1>
-            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-            <l1 class="bg-blue-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></l1>
-        </ul>
-    </div>
-    <!--NAVBAR---->
-
-
-    <!-- SIDENAV -->
-<div class="hidden md:flex h-screen bg-gray-200">
-  <aside class="w-40 h-full bg-gray-800 text-white fixed">
-    <div class="p-4 text-2xl font-semibold">Sidebar</div>
-    <ul>
-      <li class="p-4 font-semibold hover:bg-gray-700"> <a :href="route('productsAddPage')">Add Product</a></li>
-    </ul>
-  </aside>
-
-  <!-- Display on medium and large screens -->
-
-  <div class="w-full">
-    <div class="container mx-auto md:pl-40 pt-20">
+ <div class="container mx-auto md:pt-20 hidden md:block">
       <table class="w-full table-auto">
         <thead>
           <tr>
@@ -192,7 +146,7 @@ mounted(){
             <th class="border p-4 bg-slate-100">Delete</th>
           </tr>
         </thead>
-        <tbody class="bg-slate-100">
+        <tbody>
           <tr v-for="product in filteredProducts" :key="product.id">
             <td class="border p-4">{{ product.id }}</td>
             <td class="border p-4">{{ product.product_descruption }}</td>
@@ -207,24 +161,24 @@ mounted(){
         </tbody>
       </table>
     </div>
-    <!-- Display on medium and large screens -->
-  </div>
-</div>
-<!-- SIDENAV -->
 
 
-
-
- 
+    <div v-if="mobileMenuOpen" id="mobile-menu" class="pt-20 bg-gray-800 md:hidden ">
+        <ul class="bg-gray-800">
+            <li class="bg-gray-500"><a :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400">Manage Products</a></li>
+            <li class="bg-gray-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></li>
+            <li class="bg-gray-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></li>
+            <li class="bg-gray-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></li>
+        </ul>
+    </div>
+    <!--NAVBAR-->
 
     <!--Display Products On Small Screen-->
-    <br>
-    <br>
     <div class="container mx-auto p-4">
         <div class="flex flex-row justify-center  overflow-hidden">
             <!-- Hidden on medium and larger screens -->
             <div class="grid grid-cols-1 md:hidden  ">
-                <div v-for="product in filteredProducts" :key="product.id" class="border-b mt-10 bg-gray-100">
+                <div v-for="product in filteredProducts" :key="product.id" class="border-b mt-10">
                     <div class="mt-2 border-b border-slate-300 p-2">Id:</div>
                     <div class="mt-2 border-b border-slate-300 p-2">Product Name:</div>
                     <div class="mt-2 border-b border-slate-300 p-2">Product Description:</div>
@@ -235,7 +189,7 @@ mounted(){
             </div>
             <!-- Hidden on medium and larger screens -->
             <div class="grid grid-cols-1 md:hidden">
-                <div v-for="product in filteredProducts" :key="product.id" class="border-b w-full mt-10 border-b mt-10 bg-slate-100">
+                <div v-for="product in filteredProducts" :key="product.id" class="border-b w-full mt-10 border-b mt-10">
                     <div class="mt-2 border-b border-slate-300 text-green-600 p-2">{{ product.id }}</div>
                     <div class="mt-2 border-b border-slate-300 text-green-600 p-2">{{ product.product_descruption }}</div>
                     <div class="mt-2 border-b border-slate-300 text-green-600 p-2">{{ product.product_name }}</div>

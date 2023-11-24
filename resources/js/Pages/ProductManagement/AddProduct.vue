@@ -36,6 +36,7 @@ props:{
 
 data(){
     return {
+      addProductPage:true,
       mobileMenuOpen:false,
       showAddProducts:false,
       showUpdateProducts:false,
@@ -94,22 +95,21 @@ mounted(){
 
 <template>
  
-
-            <!--NAVBAR-->
+<!--NAVBAR-->
 <nav class="bg-gray-800 p-4 fixed top-0 w-full z-10">
         <div class="container flex mx-auto justify-between items-center">
             <a class="text-white">DaggaJa</a>
   <!--SEARCH BAR-->
-            <br>
+            <!-- <br>
             <div class="flex justify-center items-center">
                 <div class="relative text-gray-600">
-                    <!-- <input v-model="searchQuery" type="search" name="search" placeholder="Search..." class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none w-64 border-gray-200"> -->
+               
                     <input v-model="searchQuery" class="rounded-full" type="text" placeholder="Search products...">
                     <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
                         <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="heroicon-ui" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34C16.7 6.01 13.69 3 10 3a7 7 0 0 0-7 7c0 3.68 3.01 6.7 6.73 6.95A6.5 6.5 0 0 0 14 15.5h.79l4.25 4.25a1 1 0 0 0 1.41-1.41l-4.25-4.25v-.79a6.5 6.5 0 0 0-6.5-6.5zM10 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
                     </button>
                 </div>
-            </div>
+            </div> -->
     <!--SEARCH BAR-->
             <ul class="hidden md:flex space-x-4 text-white">
                 <a :href="route('profile.edit')">Profile</a>
@@ -138,68 +138,161 @@ mounted(){
     <!--NAVBAR---->
 
 
-        <!-- Mobile Menu Dropdown-->
- 
-  
-    <br>
+     <!--NAVBAR-->
+<nav class="bg-gray-800 p-4 fixed top-0 w-full z-10">
+    <div class="container flex mx-auto justify-between items-center">
+        <a class="text-white">DaggaJa</a>
+        <!--SEARCH BAR-->
+        <div class="flex justify-center items-center">
+            <div class="relative text-gray-600">
+                <input v-model="searchQuery" class="rounded-full" type="text" placeholder="Search productsf...">
+                <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
+                    <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path class="heroicon-ui" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34C16.7 6.01 13.69 3 10 3a7 7 0 0 0-7 7c0 3.68 3.01 6.7 6.73 6.95A6.5 6.5 0 0 0 14 15.5h.79l4.25 4.25a1 1 0 0 0 1.41-1.41l-4.25-4.25v-.79a6.5 6.5 0 0 0-6.5-6.5zM10 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <ul class="hidden md:flex space-x-4 text-white">
+            <a :href="route('profile.edit')">Profile</a>
+            <a href=""></a>
+            <a href=""></a>
+            <a href=""></a>
+        </ul>
+        <div class="md:hidden">
+            <button id="mobile-menu-toggle" class="text-white" @click="toggleButton()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div v-if="mobileMenuOpen" id="mobile-menu" class="pt-20 bg-gray-800 md:hidden ">
+    <ul class="bg-gray-800">
+        <li class="bg-gray-500"><a :href="route('products.edit')" class="block py-1 px-4 hover:bg-gray-400">Manage Products</a></li>
+        <li class="bg-gray-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></li>
+        <li class="bg-gray-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></li>
+        <li class="bg-gray-500"><a href="" class="block py-1 px-4 hover:bg-gray-400">Home</a></li>
+    </ul>
+</div>
+<!--NAVBAR-->
 
 
-   
-<!-- Add Product Form-->
 
-    <div class="container mx-auto p-4 bg-gray-300">
-        <form @submit.prevent="submit" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div class="grid grid-cols-1 gap-4 md:flex md:flex-wrap justify-center">
+
+
+
+
+
+
+
+
+        <!-- SIDENAV -->
+<div class="hidden md:flex h-screen bg-gray-200">
+  <aside class="w-40 h-full bg-gray-800 text-white fixed">
+    <div class="p-4 text-2xl font-semibold">Sidebar</div>
+    <ul>
+      <li v-if="!addProductPage" class="p-4 font-semibold hover:bg-gray-700"> <a :href="route('productsAddPage')">Add Product</a></li>
+      <li class="p-4 font-semibold hover:bg-gray-700"> <a :href="route('products.edit')">Products</a></li>
+    </ul>
+  </aside>
+  <!--Add product form-->
+  <div class="pl-40 pt-20">
+        <form @submit.prevent="submit" class="bg-gray-200 shadow-md rounded px-4 pt-6 pb-8 mb-4">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <!-- Input 1 -->
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">
-                Product Image
+                    Product Image
                 </label>
-                <!-- <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <input required  class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-1.5 px-3 text-gray-700 leading-tight" type="file"  @input="form.avatar = $event.target.files[0]"/>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">
-                 Product Name
-                </label>
-                <!-- <input class="shadow appearance-none border-none w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <TextInput required  id="product_name" ref="product_name" v-model="form.product_name" type="text" placeholder="Product Name" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">
-                 Product Desc
-                </label>
-                <!-- <input class="shadow appearance-none border-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="text" placeholder="Input 1"> -->
-                <TextInput required  id="product_description" ref="product_description" v-model="form.product_description" type="text" placeholder="Product Description" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                <input required class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-1.5 px-3 text-gray-700 leading-tight" type="file" @input="form.avatar = $event.target.files[0]"/>
             </div>
 
             <!-- Input 2 -->
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="input2">
-                 Price
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="product_name">
+                    Product Name
                 </label>
-                <!-- <input class="shadow  border-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input2" type="text" placeholder="Input 2"> -->
+                <TextInput required id="product_name" ref="product_name" v-model="form.product_name" type="text" placeholder="Product Name" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </div>
+
+            <!-- Input 3 -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="product_description">
+                    Product Description
+                </label>
+                <TextInput required id="product_description" ref="product_description" v-model="form.product_description" type="text" placeholder="Product Description" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </div>
+
+            <!-- Input 4 -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+                    Price
+                </label>
                 <TextInput id="price" required ref="price" v-model="form.price" type="number" placeholder="R" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
             </div>
+            <!-- Repeat the structure for Input 5, Input 6, and so on... -->
+        </div>
 
-            <!-- Repeat the above structure for Input 3 to Input 8 -->
-            <!-- ... -->
-
-            </div>
-
-            <!-- Submit Button -->
-            <div class="flex items-center justify-center">
+        <!-- Submit Button -->
+        <div class="flex items-center justify-center mt-4">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                 Add Product
             </button>
+        </div>
+    </form>
+  </div>
+</div>
+<!-- SIDENAV -->
+
+
+<!--mobile screen-->
+<div class="px-8 pt-40 md:hidden">
+    <form @submit.prevent="submit" class="bg-slate-100 shadow-md rounded px-4  pb-8 mb-4">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Input 1 -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">
+                    Product Image22
+                </label>
+                <input required class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-1.5 px-3 text-gray-700 leading-tight" type="file" @input="form.avatar = $event.target.files[0]"/>
             </div>
-        </form>
-    </div>
 
+            <!-- Input 2 -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="product_name">
+                    Product Name
+                </label>
+                <TextInput required id="product_name" ref="product_name" v-model="form.product_name" type="text" placeholder="Product Name" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </div>
 
+            <!-- Input 3 -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="product_description">
+                    Product Description
+                </label>
+                <TextInput required id="product_description" ref="product_description" v-model="form.product_description" type="text" placeholder="Product Description" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </div>
 
-<!-- End Product Form-->
-  
+            <!-- Input 4 -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="price">
+                    Price
+                </label>
+                <TextInput id="price" required ref="price" v-model="form.price" type="number" placeholder="R" class="shadow appearance-none rounded-lg border-2 border-gray-400 w-full py-2 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+            </div>
+            <!-- Repeat the structure for Input 5, Input 6, and so on... -->
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex items-center justify-center mt-4">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Add Product
+            </button>
+        </div>
+    </form>
+
+</div>
+
 </template>

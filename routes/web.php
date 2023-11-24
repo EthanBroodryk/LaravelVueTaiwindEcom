@@ -37,9 +37,11 @@ use Inertia\Inertia;
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
-Route::get('/return',function(){
-    return Inertia::render('ReturnPage');
-});
+// Route::get('/return',function(){
+//     return Inertia::render('ReturnPage');
+// });
+
+Route::get('/return',[FrontPageController::class,'index']);
 
 Route::get('/Orders',[ordersController::class,'index'])->name('orders');
 

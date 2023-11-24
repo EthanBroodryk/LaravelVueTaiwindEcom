@@ -20,7 +20,9 @@ class FrontPageController extends Controller
 
         $products = Products::all();
 
-        return Inertia::render('Tailwind',['products'=>$products]);
+        return Inertia::render('PlayGround',['products'=>$products]);
+
+        //return Inertia::render('testnavbar');
     }
 
 }
