@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\categories;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -21,21 +22,23 @@ class ProductsController extends Controller
     public function index()
     {
         //
+    
         $products = Products::all();
         return Inertia::render('Products',['products'=>$products]);
     }
 
     public function showAddProductsPage(){
-  
-        return Inertia::render('ProductManagement/AddProduct');
+        $categories = categories::all();
+        return Inertia::render('ProductManagement/AddProduct',['categories'=>$categories]);
     }
 
 
     public function addProduct(Request $request)
     {
-        // dd('The Request',$request);
+
         $uploadedFile = $request->avatar;
         $product_name = $request->product_name;
+        $product_category = $request->selectedCategory;
         $price = $request->price;
         $product_description = $request->product_description;
         $imageName = $uploadedFile->getClientOriginalName();
@@ -48,7 +51,7 @@ class ProductsController extends Controller
         } else {
             // Error handling if the file move fails.
         }
-        Products::create(['product_name'=>$product_name,'product_descruption'=>$product_description,'image_file_name'=>$imageFile.$imageName,'price'=>$price]);
+        Products::create(['product_name'=>$product_name,'product_descruption'=>$product_description,'image_file_name'=>$imageFile.$imageName,'product_category'=>$product_category,'price'=>$price]);
         $products = Products::all();
         return Inertia::render('Products',['products'=>$products]);
 

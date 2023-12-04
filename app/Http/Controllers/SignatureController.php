@@ -44,9 +44,9 @@ class SignatureController extends Controller
         $data = array(
             'merchant_id' => '10023678',
             'merchant_key' => 'qxc0q74debfxr',      
-            'return_url' => 'https://f9b7-197-90-70-167.ngrok-free.app/return',
+            'return_url' => 'https://b501-197-90-115-152.ngrok-free.app/return',
             'cancel_url' => 'http://www.yourdomain.co.za/cancel.php',
-            'notify_url' => 'https://f9b7-197-90-70-167.ngrok-free.app/notify',
+            'notify_url' => 'https://b501-197-90-115-152.ngrok-free.app/notify',
             // Buyer details
             'name_first' => $request->first_name,
             'name_last'  =>  $request->last_name,

@@ -42,14 +42,16 @@ Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
 // });
 
 Route::get('/return',[FrontPageController::class,'index']);
-
 Route::get('/Orders',[ordersController::class,'index'])->name('orders');
-
 Route::post('/notify',[PayFastController::class,'handleNotification']);
 // Route::post('/checkout2',[SignatureController::class,'generateSignature']);
 // Route::get('/checkout2',[SignatureController::class,'generateSignature']);
 
-Route::get('/',[FrontPageController::class,'index']);
+Route::get('/',[FrontPageController::class,'index'])->name('home');
+Route::get('/productByCategory',[FrontPageController::class,'getProductByCategories'])->name('getProductsByCategory');
+
+
+
 Route::get('/addProductToCart',[ProductsController::class,'addProductToCart'])->name('addProductToCart');
 Route::post('/checkout',[SignatureController::class,'generateSignature'])->name('generateSignature');
 Route::post('/checkout2',[SignatureController::class,'generateSignature']);

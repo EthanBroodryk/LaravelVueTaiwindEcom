@@ -13,7 +13,8 @@ class TrustProxies extends Middleware
      * @var array<int, string>|string|null
      */
     protected $proxies = [
-       'https://261b-197-90-121-90.ngrok-free.app/'
+    //    'https://261b-197-90-121-90.ngrok-free.app/'
+      'http://127.0.0.1:8000'
     ];
 
     /**
